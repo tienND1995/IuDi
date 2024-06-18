@@ -19,5 +19,9 @@ module.exports = withMT({
    green: '#50C759',
    greenlight: '#4EC957 ',
   },
+
+  screens: {
+    mobile: {max: '450px'},
+  },
  },
 })

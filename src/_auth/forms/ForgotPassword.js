@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import background from '../../images/background.jpg'
 import Footer from '../../components/Footer/Footer'
-import Header1 from '../../components/Header/Header1'
+import Header1 from '../../components/header/Header1'
 import Modal from '../../components/shared/Modal'
 
 function ForgotPassword() {

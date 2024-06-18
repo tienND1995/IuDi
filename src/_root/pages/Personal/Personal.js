@@ -11,7 +11,7 @@ import {
  patchProfile,
 } from '../../../service/redux/users/usersSlice'
 
-import Header2 from '../../../components/Header/Header2'
+import Header2 from '../../../components/header/Header2'
 import Footer from '../../../components/Footer/Footer'
 import background from '../../../images/bg3.jpg'
 

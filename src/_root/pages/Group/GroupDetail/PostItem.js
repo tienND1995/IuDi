@@ -56,7 +56,7 @@ const PostItem = (props) => {
  return (
   <li
    key={PostID}
-   className='mt-5 bg-[#222222] rounded-xl border border-solid border-[#4EC957]'
+   className='mt-5 bg-[#222222] rounded-xl border border-solid border-[#4EC957] mobile:bg-white mobile:border-[#ccc] '
   >
    <div className='p-5 flex justify-between'>
     <div className='flex gap-2 items-center'>
@@ -96,7 +96,7 @@ const PostItem = (props) => {
      <div
       ref={btnRef}
       className={
-       'flex-col gap-2 hidden p-5 bg-[#222] min-w-[200px] shadow-[0px_0px_8px_#000] absolute right-0 top-100 z-[10] rounded-md'
+       'flex-col gap-2 hidden p-5 bg-[#222] min-w-[200px] shadow-[0px_0px_8px_#000] absolute right-0 top-100 z-[10] rounded-md '
       }
      >
       <div>
@@ -165,7 +165,7 @@ const PostItem = (props) => {
 
     <div className='flex gap-3 mt-3 ml-5'>
      <button
-      className='flex gap-1 bg-[#303030] py-2 px-5 rounded-[20px] hover:opacity-70 hover:transition-[0.3s]'
+      className='flex gap-1 bg-[#303030] py-2 px-5 rounded-[20px] hover:opacity-70 hover:transition-[0.3s] mobile:text-black mobile:bg-[#f0f2f5]'
       type='button'
       onClick={() => dispatch(addLikePost({ postId: PostID, userID: UserID }))}
      >
@@ -174,7 +174,7 @@ const PostItem = (props) => {
      </button>
 
      <button
-      className='flex gap-1 bg-[#303030] py-2 px-5 rounded-[20px] hover:opacity-70 hover:transition-[0.3s]'
+      className='flex gap-1 bg-[#303030] py-2 px-5 rounded-[20px] hover:opacity-70 hover:transition-[0.3s] mobile:text-black mobile:bg-[#f0f2f5]'
       type='button'
       onClick={handleShowComments}
      >

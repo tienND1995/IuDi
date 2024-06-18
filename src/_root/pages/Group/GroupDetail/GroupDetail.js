@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { ToastContainer } from 'react-toastify'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import {
  fetchPosts,
  postComment,
@@ -20,6 +20,7 @@ import FormPost from './FormPost'
 import PostItem from './PostItem'
 
 import { handleErrorImg } from '../../../../service/utils/utils'
+import MenuMobile from '../../../../components/MobileMenu'
 
 const { API__SERVER, URL_BASE64 } = config
 
@@ -76,7 +77,7 @@ const GroupDetail = () => {
 
  return (
   <div>
-   <div className='relative p-5 rounded-lg bg-[#222222] border border-solid border-[#4EC957]'>
+   <div className='relative p-5 rounded-lg bg-[#222222] border border-solid border-[#4EC957] mobile:bg-white mobile:border-[#ccc]'>
     <div className='flex gap-2 items-center'>
      <img
       className='w-[73px] h-[73px] rounded-full object-cover'
@@ -94,13 +95,13 @@ const GroupDetail = () => {
      </button>
     </div>
 
-    <div className='mt-3 flex justify-between'>
+    <div className='mt-3 flex justify-between mobile:hidden'>
      <button
       onClick={() => handleShowModal('post', {})}
       type='button'
-      className='relative bg-[#303030] py-2 px-5 rounded-[20px] flex gap-1 '
+      className='relative bg-[#303030] py-2 px-5 rounded-[20px] flex gap-1 mobile:bg-[#f0f2f5]'
      >
-      <img src={uploadFile} alt='upload file' />
+      <img src={uploadFile} alt='upload file'/>
       <spa>Ảnh/Video</spa>
      </button>
 
@@ -110,7 +111,7 @@ const GroupDetail = () => {
     </div>
    </div>
 
-   <div>
+   <div className='mobile:bg-[#ececec] max-h-[70vh]  overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 md:max-h-full md:overflow-y-visible'>
     <ul>
      {postList.length > 0 ? (
       postList.map(
@@ -194,6 +195,11 @@ const GroupDetail = () => {
    <FormPost modal={modal} hiddenModal={handleHiddenModal} />
 
    <ToastContainer position='bottom-right' autoClose={5000} />
+
+     {/* Mobile menu */}
+     <div className='fixed bottom-10 left-0 right-0 mx-3 hidden mobile:block rounded-t-lg'>
+      <MenuMobile/>
+      </div>
   </div>
  )
 }

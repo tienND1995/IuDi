@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom'
 import { Auth } from '../../../service/utils/auth'
 import PreLogin from './PreLogin/PreLogin'
 
-import Header2 from '../../../components/Header/Header2'
+import Header2 from '../../../components/header/Header2'
 import SideBar from './Message/Message'
 import background from '../../../images/bg3.jpg'
 

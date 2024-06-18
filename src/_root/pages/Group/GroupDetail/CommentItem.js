@@ -43,7 +43,7 @@ const CommentItem = (props) => {
 
    <div>
     <div className='flex gap-2 items-center group '>
-     <div className='bg-[#423f3f] p-2 rounded-xl'>
+     <div className='bg-[#423f3f] p-2 rounded-xl mobile:text-black mobile:bg-[#f0f2f5]'>
       <h3 className='text-xs font-semibold capitalize'>{FullName}</h3>
       <p className='text-xs'>{Content}</p>
      </div>

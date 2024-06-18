@@ -6,9 +6,10 @@ import Logogroup from '../../../../images/logo-group.png'
 import GroupItem from './GroupItem'
 
 import config from '../../../../configs/Configs.json'
+import { ChevronLeftIcon } from '@heroicons/react/24/outline'
 const { API__SERVER } = config
 
-const SideBarGroup = ({ onLoading }) => {
+const SideBarGroup = ({ onLoading, onClick }) => {
  const [groupList, setGroupList] = useState([])
  const { groupId } = useParams()
 
@@ -26,8 +27,17 @@ const SideBarGroup = ({ onLoading }) => {
  }, [])
 
  return (
-  <div className='text-white'>
-   <div className='flex items-center gap-2'>
+  <div className='sm:text-white text-black lg:text-[16px] sm:text-[12px] text-[14px] '>
+    <div className='hidden mobile:flex justify-between p-4 items-center border-b-[#817C7C] border-b border-solid'>
+      <Link to='/'>
+        <button className='w-8 h-8 '>
+          <ChevronLeftIcon />
+        </button>
+      </Link>
+      <span className='text-[26px] font-semibold'>Nhóm</span>
+        <div></div>
+    </div>
+   <div className='flex items-center gap-2 mobile:hidden'>
     <Link>
      <img src={Logogroup} alt='logo group' />
     </Link>
@@ -48,6 +58,7 @@ const SideBarGroup = ({ onLoading }) => {
         refImg: imgAvatarRef,
         idParams: groupId,
        }}
+       onSelectGroup={onClick}
       />
      )
     })}

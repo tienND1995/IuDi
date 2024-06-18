@@ -11,7 +11,7 @@ import {
  MdOutlineWhereToVote,
 } from 'react-icons/md'
 
-import Header1 from '../../../components/Header/Header1'
+import Header1 from '../../../components/header/Header1'
 import Footer from '../../../components/Footer/Footer'
 import bg from '../../../images/bg3.jpg'
 import bgProfile from '../../../images/profiles/bg-profile.png'

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
-import Header3 from '../../../components/Header/Header3'
+import Header3 from '../../../components/header/Header3'
 import SideBarGroup from './SidebarGroup/SideBarGroup'
 import background from '../../../images/background.jpg'
 import slideGroup from '../../../images/slideGroup.png'
@@ -51,18 +51,25 @@ const Group = () => {
   }
  }, [])
 
+ const [isShowSideBar, setIsShowSideBar] = useState(false)
+
+ const handleChange = () => {
+    setIsShowSideBar(true)
+ }
+
  return (
-  <div
-   className='flex flex-col justify-between w-full '
-   style={backgroundImageStyle}
-  >
+  <>
+    <div
+    className='flex flex-col justify-between w-full mobile:hidden '
+    style={backgroundImageStyle}
+   >
    <Header3 isDark={isDark} onGetHeight={handleGetHeightHeder} />
    <div>
     <div
      ref={sidebarRef}
      style={sidebarStyles}
      id='sidebar-group'
-     className='p-5 overflow-y-auto overflow-x-hidden max-w-[300px] lg:max-w-[450px] w-max'
+     className='p-5 overflow-y-auto overflow-x-hidden max-w-[300px] xl:max-w-[450px] lg:max-w-[420px] md:max-w-[330px] sm:max-w-[230px] w-max' 
     >
      <SideBarGroup onLoading={getIsLoadingSidebar} />
     </div>
@@ -102,11 +109,22 @@ const Group = () => {
 
      <div className='grid 2xl:grid-cols-2 grid-cols-1 py-5'>
       <GroupDetail />
-      <GroupImages />
+      <GroupImages/>
      </div>
     </div>
    </div>
   </div>
+
+    {/* mobile */}
+    <div className='sm:hidden'>
+    {
+        isShowSideBar === false
+         ? <SideBarGroup onClick = {handleChange} onLoading={getIsLoadingSidebar} />
+         : <GroupDetail />
+    }
+
+  </div>
+  </>
  )
 }
 export default Group

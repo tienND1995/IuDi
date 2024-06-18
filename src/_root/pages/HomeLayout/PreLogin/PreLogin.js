@@ -4,7 +4,7 @@ import appstore from '../../../../images/appstore.png'
 import chplay from '../../../../images/chplay.png'
 import Logo from '../../../../images/logoApp.png'
 
-import Header1 from '../../../../components/Header/Header1'
+import Header1 from '../../../../components/header/Header1'
 import Footer from '../../../../components/Footer/Footer'
 import background from '../../../../images/background.jpg'
 

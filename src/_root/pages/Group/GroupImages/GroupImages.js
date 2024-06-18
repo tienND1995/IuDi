@@ -1,66 +1,23 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { postsSelector } from '../../../../service/redux/posts/postsSlice'
 
-import image1 from '../../../../images/animals/image1.jpg'
-import image2 from '../../../../images/animals/image2.jpg'
-import image3 from '../../../../images/animals/image3.jpg'
-import image4 from '../../../../images/animals/image4.jpg'
-import image5 from '../../../../images/animals/image5.jpg'
-import image6 from '../../../../images/animals/image6.jpg'
-import image7 from '../../../../images/animals/image7.jpg'
-import image8 from '../../../../images/animals/image8.jpg'
-import image9 from '../../../../images/animals/image9.jpg'
+import config from '../../../../configs/Configs.json'
+const { URL_BASE64 } = config
+
 
 const GroupImages = () => {
- const imageList = [
-  {
-   id: 1,
-   thumb: image1,
-  },
 
-  {
-   id: 2,
-   thumb: image2,
-  },
+ const postsState = useSelector(postsSelector)
 
-  {
-   id: 3,
-   thumb: image3,
-  },
-
-  {
-   id: 4,
-   thumb: image4,
-  },
-
-  {
-   id: 5,
-   thumb: image5,
-  },
-
-  {
-   id: 6,
-   thumb: image6,
-  },
-
-  {
-   id: 7,
-   thumb: image7,
-  },
-
-  {
-   id: 8,
-   thumb: image8,
-  },
-
-  {
-   id: 9,
-   thumb: image9,
-  },
- ]
+ const imageList2 = postsState.posts.map((post, index) => ({
+    id: index + 1,
+    thumb: post.Photo,
+  }))
 
  return (
   <div>
-   <div className='p-3 bg-black rounded-md w-max mx-auto'>
+   <div className='p-3 bg-black rounded-md mx-auto'>
     <div className='bg-gray-700 rounded p-2'>
      <div className='flex justify-between'>
       <h5>Ảnh</h5>
@@ -70,12 +27,12 @@ const GroupImages = () => {
       </div>
      </div>
      <div className=''>
-      <ul className='grid grid-cols-3'>
-       {imageList.map(({ id, thumb }) => (
+      <ul className='grid grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1'>
+       {imageList2.map(({ id, thumb }) => (
         <li key={id} className='p-1'>
          <img
           className='h-[150px] w-[150px] object-cover rounded'
-          src={thumb}
+          src={`${URL_BASE64}${thumb}`}
           alt={thumb}
          />
         </li>
