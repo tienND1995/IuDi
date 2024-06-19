@@ -9,7 +9,7 @@ import config from '../../../../configs/Configs.json'
 import { ChevronLeftIcon } from '@heroicons/react/24/outline'
 const { API__SERVER } = config
 
-const SideBarGroup = ({ onLoading, onClick }) => {
+const SideBarGroup = ({ onLoading}) => {
  const [groupList, setGroupList] = useState([])
  const { groupId } = useParams()
 
@@ -27,7 +27,7 @@ const SideBarGroup = ({ onLoading, onClick }) => {
  }, [])
 
  return (
-  <div className='sm:text-white text-black lg:text-[16px] sm:text-[12px] text-[14px] '>
+  <div className='text-white mobile:text-black lg:text-[16px] sm:text-[12px] text-[14px] '>
     <div className='hidden mobile:flex justify-between p-4 items-center border-b-[#817C7C] border-b border-solid'>
       <Link to='/'>
         <button className='w-8 h-8 '>
@@ -58,7 +58,6 @@ const SideBarGroup = ({ onLoading, onClick }) => {
         refImg: imgAvatarRef,
         idParams: groupId,
        }}
-       onSelectGroup={onClick}
       />
      )
     })}

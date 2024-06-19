@@ -1,15 +1,17 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import bg from '../../images/bg3.jpg'
-import Footer from '../../components/shared/Footer'
+import bg from '../../../images/bg3.jpg'
+import Footer from '../../../components/Footer/Footer'
 import Header1 from '../../../components/header/Header1'
 import UserList from './UserList'
 import config from '../../../configs/Configs.json'
+import { Auth } from '../../../service/utils/auth'
 
 const { FINDING_DEFAULT } = config
 
 function Finding() {
- const dataUser = JSON.parse(localStorage.getItem('InforCurrentUser'))
+ const { userID } = new Auth()
+
  const [users, setUsers] = useState([])
 
  const setting = JSON.parse(localStorage.getItem('findingSetting'))
@@ -18,13 +20,16 @@ function Finding() {
   const fetchUsers = async (setting) => {
    try {
     const res = await axios.get(
-     `https://api.iudi.xyz/api/location/${dataUser.UserID}/${
-      setting.radius * 1000 || FINDING_DEFAULT
+     `https://api.iudi.xyz/api/location/${userID}/${
+        setting?.radius * 1000 || FINDING_DEFAULT
+    //   FINDING_DEFAULT
      }`
     )
 
+    console.log(res)
+
     const data = res.data.Distances
-    const resultData = data.filter((user) => user.Gender !== setting.gender)
+    const resultData = data.filter((user) => user.Gender !== setting?.gender)
 
     return setUsers(resultData)
    } catch (error) {
@@ -43,18 +48,24 @@ function Finding() {
  }
 
  return (
-  <div style={background} className=''>
-   <Header1 />
-   <div className='relative'>
-    <div className='fixed top-0 left-0 w-[500px] border-r-2 border-white min-h-[100vh]'></div>
-    <div className='border-t-2 border-white '>
-     <div className=''>
-      <UserList users={users} />
-     </div>
+  <>
+    <div style={background} className='mobile:hidden'>
+        <Header1 />
+        <div className='relative'>
+            <div className='fixed top-0 left-0 w-[500px] border-r-2 border-white min-h-[100vh]'></div>
+            <div className='border-t-2 border-white '>
+            <div className=''>
+            <UserList users={users} />
+            </div>
+            </div>
+        </div>
+        <Footer />
     </div>
-   </div>
-   <Footer />
-  </div>
+
+    <div className='hidden mobile:block'>
+    <UserList users={users} />
+    </div>
+  </>
  )
 }
 

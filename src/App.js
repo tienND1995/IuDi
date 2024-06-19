@@ -18,6 +18,8 @@ import Group from './_root/pages/Group/Group.js'
 import CreateInfoUser from './_root/pages/CreateInfoUser/CreateInfoUser.js'
 
 import 'react-toastify/dist/ReactToastify.css'
+import SideBarGroup from './_root/pages/Group/SidebarGroup/SideBarGroup.js'
+import Finding from './_root/pages/Finding/Finding.js'
 
 function App() {
  return (
@@ -41,9 +43,16 @@ function App() {
     <Route element={<RootLayout />}>
      <Route path='/profile/:username' element={<Profile />} />
      <Route path='/personal' element={<Personal />} />
+
+     <Route path='/group' element={<SideBarGroup />} />
      <Route path='/group/:slug/:groupId' element={<Group />}></Route>
+
     </Route>
 
+
+    {/* finding */}
+    <Route path='/finding' element={<Finding/>}></Route>
+    
     <Route path='/create-info' element={<CreateInfoUser />} />
    </Routes>
   </main>

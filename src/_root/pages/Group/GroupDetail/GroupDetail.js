@@ -27,6 +27,7 @@ const { API__SERVER, URL_BASE64 } = config
 const GroupDetail = () => {
  const { userID } = new Auth()
  const { groupId } = useParams()
+ 
  const [postList, setPostList] = useState([])
 
  const { posts, changeTogglePosts } = useSelector(postsSelector)

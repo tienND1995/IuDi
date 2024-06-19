@@ -51,11 +51,11 @@ const Group = () => {
   }
  }, [])
 
- const [isShowSideBar, setIsShowSideBar] = useState(false)
+//  const [isShowSideBar, setIsShowSideBar] = useState(false)
 
- const handleChange = () => {
-    setIsShowSideBar(true)
- }
+//  const handleChange = () => {
+//     setIsShowSideBar(true)
+//  }
 
  return (
   <>
@@ -118,9 +118,10 @@ const Group = () => {
     {/* mobile */}
     <div className='sm:hidden'>
     {
-        isShowSideBar === false
-         ? <SideBarGroup onClick = {handleChange} onLoading={getIsLoadingSidebar} />
-         : <GroupDetail />
+        // isShowSideBar === false
+        //  ? <SideBarGroup onClick = {handleChange} onLoading={getIsLoadingSidebar} />
+        //  : <GroupDetail />
+        <GroupDetail />
     }
 
   </div>

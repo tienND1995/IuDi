@@ -7,8 +7,6 @@ const {URL_BASE64} = config
 
 const GroupItem = (props) => {
  const { GroupID, avatarLink, GroupName, idParams, refImg } = props.data
- const { onSelectGroup } = props;
-
  return (
   <li
    key={GroupID}
@@ -18,7 +16,6 @@ const GroupItem = (props) => {
    <Link
     to={`/group/${slugString(GroupName)}/${GroupID}`}
     className='flex flex-wrap gap-2 items-center'
-    onClick={onSelectGroup}
    >
     <div>
      <img

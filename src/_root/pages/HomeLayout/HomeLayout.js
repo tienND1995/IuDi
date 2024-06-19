@@ -10,6 +10,7 @@ import background from '../../../images/bg3.jpg'
 
 import { useSelector } from 'react-redux'
 import { usersSelector } from '../../../service/redux/users/usersSlice'
+import MenuMobile from '../../../components/MobileMenu'
 
 const HomeLayout = () => {
  const { isLogin } = new Auth()
@@ -48,6 +49,11 @@ const HomeLayout = () => {
      <Outlet />
     </div>
    </div>
+
+    {/* menu test */}
+     <div className='fixed bottom-10 left-0 right-0 mx-3 hidden mobile:block rounded-t-lg'>
+      <MenuMobile/>
+      </div>
   </div>
  )
 }

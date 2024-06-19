@@ -13,12 +13,12 @@ const icons = [
     },
     { 
         icon: GlobeAltIcon,
-        link: '',
+        link: '/finding',
         isLink: true
     },
     { 
         icon: ClockIcon,
-        link: '',
+        link: '/group',
         isLink: true
     },
     { 
