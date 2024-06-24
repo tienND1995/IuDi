@@ -83,7 +83,6 @@ const Message = () => {
  const imgAvatarUserRef = React.createRef()
 
  //   console.log('data:', userOtherList)
-  console.log('id:', userIdOtherList)
 
  return (
   <>
