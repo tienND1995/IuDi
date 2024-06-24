@@ -1,27 +1,47 @@
-import { AdjustmentsHorizontalIcon, ChevronLeftIcon, MapPinIcon } from "@heroicons/react/24/outline"
-import { Link, useLocation } from "react-router-dom"
+import { MapPinIcon } from "@heroicons/react/24/outline"
+import { Link } from "react-router-dom"
 import config from '../../../configs/Configs.json'
 import { useEffect, useState } from "react"
 import axios from "axios"
+import { Auth } from "../../../service/utils/auth"
 const { URL_BASE64 } = config
 
-const sexs = ["Giới tính thứ ba", "Đồng tính nam", "Đồng tính nữ"]
+const listSex2 = ["Giới tính thứ ba", "Đồng tính nam", "Đồng tính nữ"]
 
-const FindingInfo = () => {
+const FindingInfo = ({ users }) => {
     const date = new Date()
     const yearNow = date.getFullYear()
 
-    const location = useLocation()
-    const { user } = location.state
-
-    const birthDate = new Date(user.BirthDate);
-
+    const { userName } = new Auth()
+    const [profileData, setProfileData] = useState({})
     const [citys, setCitys] = useState([]);
     const [selectCity, setSelectCity] = useState('Hà Nội');
     const [distance, setDistance] = useState('0')
-    const [age, setAge] = useState('16')
-    const [sex, setSex] = useState("Giới tính thứ ba")
+    const [age, setAge] = useState('0')
+    const [sex2, setSex2] = useState("Giới tính thứ ba")
 
+    useEffect(() => {
+        const fetchProfileData = async () => {
+         try {
+          const response = await axios.get(
+           `https://api.iudi.xyz/api/profile/${userName}`
+          )
+          setProfileData(response.data.Users[0])
+         } catch (error) {
+          console.error('Error fetching profile data:', error)
+         }
+        }
+      
+        fetchProfileData()
+       }, [userName])
+      
+       const {
+        avatarLink,
+        FullName,
+        BirthDate,
+       } = profileData
+
+    const birthDate = new Date(BirthDate);
 
     useEffect(() => {
         axios.get('https://esgoo.net/api-tinhthanh/1/0.htm')
@@ -41,43 +61,52 @@ const FindingInfo = () => {
         setAge(e.target.value)
        }
 
-       const handleChangeSex = (event) => {
-        setSex(event.target.value);
+       const handleChangeSex2 = (event) => {
+        setSex2(event.target.value);
     };
+
+    const handleSelectMale = () => {
+        setSex2("Nam")
+    };
+
+    const handleSelectFemale = () => {
+        setSex2("Nữ")
+    };
+
+    const listFilter = users.filter(user => {
+        const userAge = yearNow - new Date(user.BirthDate).getFullYear();
+        const isAgeMatch = userAge <= age && userAge >=0
+        const isCityMatch = user.CurrentAdd === selectCity;
+        const isSexMatch = user.Gender === sex2;
+        return isAgeMatch && isCityMatch && isSexMatch;
+    });
+
+    console.log(listFilter)
+
 
     return (
         <>
             {/* Mobile */}
             <div className="hidden mobile:block">
-                <div className='hidden mobile:flex justify-between p-4 items-center border-b-[#817C7C] border-b border-solid'>
-                    <Link to='/finding'>
-                        <button className='w-8 h-8 '>
-                            <ChevronLeftIcon />
-                        </button>
-                    </Link>
-                    <span className='text-[22px] font-bold'>Tìm quanh đây</span>
-                    <div className='rounded-full bg-[#008748] w-10 h-10 p-1'>
-                        <AdjustmentsHorizontalIcon className='text-white' />
-                    </div>
-                </div>
-
                 <div className='flex justify-between items-center border-b border-gray-500 mt-12 mx-5 pb-3'>
-                    <div className='flex'>
-                        <div className='mx-2'>
-                            <img
-                                className=' mx-auto w-[60px] h-[60px] rounded-full object-cover border border-slate-900'
-                                src={`${URL_BASE64}${user.avatarLink}`}
-                                alt={`avatar ${user.FullName}`}
-                            />
-                        </div>
+                    <Link to={`/profile/${userName}`}>
+                        <div className='flex'>
+                            <div className='mx-2'>
+                                <img
+                                    className=' mx-auto w-[60px] h-[60px] rounded-full object-cover border border-slate-900'
+                                    src={`${URL_BASE64}${avatarLink}`}
+                                    alt={`avatar ${FullName}`}
+                                />
+                            </div>
 
-                        <div>
-                            <span className='font-extrabold'>{user.FullName}</span>
-                            {/* <p className=''>{user.BirthDate}</p> */}
-                            <p className=''>{user.BirthDate === null ? "" : `${yearNow -birthDate.getFullYear()} tuổi`}</p>
-                        </div>
+                            <div>
+                                <span className='font-extrabold'>{FullName}</span>
+                                {/* <p className=''>{user.BirthDate}</p> */}
+                                <p className=''>{BirthDate === null ? "" : `${yearNow -birthDate.getFullYear()} tuổi`}</p>
+                            </div>
 
-                    </div>
+                        </div>
+                    </Link>
 
                     <div>
                         <MapPinIcon className='text-[#008748] w-6' />
@@ -130,13 +159,13 @@ const FindingInfo = () => {
                         
                         <input
                         type='range'
-                        min={16}
+                        min={0}
                         max={50}
                         onChange={onHandleChangeAge}
                         className='my-4 range range-success range-xs range-infor'
                         />
                         <div className="flex justify-between">
-                            <span className='text-black font-bold text-[20px]'>16</span>
+                            <span className='text-black font-bold text-[20px]'>0</span>
                             <span className='font-bold text-black text-[20px]'>{age}</span>
                         </div>
                     </div>
@@ -145,15 +174,15 @@ const FindingInfo = () => {
                         <span className='text-black font-bold'>Giới tính</span>
 
                         <div className="mt-4 flex justify-between">
-                            <button className="bg-[#008748] text-white font-bold py-2 px-10 rounded-lg">Nam</button>
-                            <button className="border border-[#008748] font-bold py-2 px-8 rounded-lg">Nữ</button>
+                            <button onClick={() => handleSelectMale()} className="border border-[#008748] font-bold py-2 px-10 rounded-lg hover:bg-[#008748] hover:text-white" >Nam</button>
+                            <button onClick={() => handleSelectFemale()} className="border border-[#008748] font-bold py-2 px-8 rounded-lg hover:bg-[#008748] hover:text-white">Nữ</button>
                             <select
                                 id="sex"
-                                value={sex}
-                                onChange={handleChangeSex}
+                                value={sex2}
+                                onChange={handleChangeSex2}
                                 className="px-2 outline-none font-bold border border-current rounded-lg"
                             >
-                                {sexs.map((sex, index) => (
+                                {listSex2.map((sex, index) => (
                                     <option className="text-[12px] w-10" key={index} value={sex}>
                                         {sex}
                                     </option>
@@ -163,8 +192,17 @@ const FindingInfo = () => {
                     </div>
 
                     <div className="mt-8 flex justify-between">
-                        <button className="border border-[#008748] font-bold py-4 px-12 rounded-lg text-[20px]">Quay lại</button>
-                        <button className="bg-[#008748] text-white font-bold py-4 px-12 rounded-lg text-[20px]">Áp dụng</button>
+                        <Link to='/'>
+                            <button className="border border-[#008748] font-bold py-4 px-12 rounded-lg text-[20px]">Quay lại</button>
+                        </Link>
+                        <Link 
+                            to='/listFinding'
+                            state={{users: listFilter}}
+                        >
+                            <button className="bg-[#008748] text-white font-bold py-4 px-12 rounded-lg text-[20px]">Áp dụng</button>
+                        </Link>
+                            
+                        
                     </div>
 
                 </div>

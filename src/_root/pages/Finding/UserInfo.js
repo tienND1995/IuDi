@@ -2,13 +2,13 @@ import { MapPinIcon } from "@heroicons/react/24/outline";
 import config from '../../../configs/Configs.json'
 const { URL_BASE64 } = config
 
-const UserInfo = ({user}) => {
+const UserInfo = ({user, key}) => {
     const date = new Date()
     const yearNow = date.getFullYear()
     const birthDate = new Date(user.BirthDate);
     return (
         <>
-            <div className='flex justify-between items-center border-b border-gray-500 mt-5 mx-3 pb-3'>
+            <div key={key} className='flex justify-between items-center border-b border-gray-500 mt-5 mx-3 pb-3'>
                 <div className='flex'>
                     <div className='mx-2'>
                       <img
@@ -25,7 +25,7 @@ const UserInfo = ({user}) => {
                       <p className=''>{user.BirthDate === null ? "" : `${yearNow -birthDate.getFullYear()} tuổi`}</p>
                     </div>
 
-                  </div>
+                </div>
                
 
               <div>

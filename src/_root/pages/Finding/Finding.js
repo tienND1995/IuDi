@@ -6,17 +6,18 @@ import Header1 from '../../../components/header/Header1'
 import UserList from './UserList'
 import config from '../../../configs/Configs.json'
 import { Auth } from '../../../service/utils/auth'
-import { Link, Outlet } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { AdjustmentsHorizontalIcon, ChevronLeftIcon } from '@heroicons/react/24/outline'
-import MenuMobile from '../../../components/MobileMenu'
+import FindingInfo from './FindingInfo'
 
 const { FINDING_DEFAULT } = config
 
 function Finding() {
- const { userID, userName } = new Auth()
+ const { userID } = new Auth()
 
  const [users, setUsers] = useState([])
+ 
 
  const setting = JSON.parse(localStorage.getItem('findingSetting'))
 
@@ -78,10 +79,8 @@ function Finding() {
                 <AdjustmentsHorizontalIcon className='text-white'/>
             </div>
         </div>
-        <UserList users={users} />
-        <div className='fixed bottom-10 left-0 right-0 mx-3 hidden mobile:block rounded-t-lg'>
-            <MenuMobile/>
-        </div>
+
+        <FindingInfo users={users} />
     </div>
   </>
  )
