@@ -6,11 +6,15 @@ import Header1 from '../../../components/header/Header1'
 import UserList from './UserList'
 import config from '../../../configs/Configs.json'
 import { Auth } from '../../../service/utils/auth'
+import { Link, Outlet } from 'react-router-dom'
+
+import { AdjustmentsHorizontalIcon, ChevronLeftIcon } from '@heroicons/react/24/outline'
+import MenuMobile from '../../../components/MobileMenu'
 
 const { FINDING_DEFAULT } = config
 
 function Finding() {
- const { userID } = new Auth()
+ const { userID, userName } = new Auth()
 
  const [users, setUsers] = useState([])
 
@@ -63,7 +67,21 @@ function Finding() {
     </div>
 
     <div className='hidden mobile:block'>
-    <UserList users={users} />
+        <div className='hidden mobile:flex justify-between p-4 items-center border-b-[#817C7C] border-b border-solid'>
+            <Link to='/'>
+            <button className='w-8 h-8 '>
+                <ChevronLeftIcon />
+            </button>
+            </Link>
+            <span className='text-[22px] font-bold'>Tìm quanh đây</span>
+            <div className='rounded-full bg-[#008748] w-10 h-10 p-1'>
+                <AdjustmentsHorizontalIcon className='text-white'/>
+            </div>
+        </div>
+        <UserList users={users} />
+        <div className='fixed bottom-10 left-0 right-0 mx-3 hidden mobile:block rounded-t-lg'>
+            <MenuMobile/>
+        </div>
     </div>
   </>
  )

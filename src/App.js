@@ -20,6 +20,7 @@ import CreateInfoUser from './_root/pages/CreateInfoUser/CreateInfoUser.js'
 import 'react-toastify/dist/ReactToastify.css'
 import SideBarGroup from './_root/pages/Group/SidebarGroup/SideBarGroup.js'
 import Finding from './_root/pages/Finding/Finding.js'
+import FindingInfo from './_root/pages/Finding/FindingInfo.js'
 
 function App() {
  return (
@@ -52,7 +53,9 @@ function App() {
 
     {/* finding */}
     <Route path='/finding' element={<Finding/>}></Route>
+    <Route path='/info/:userId' element={<FindingInfo/>}/>
     
+    {/* create info */}
     <Route path='/create-info' element={<CreateInfoUser />} />
    </Routes>
   </main>

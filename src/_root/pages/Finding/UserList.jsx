@@ -7,10 +7,14 @@ import {
   Typography
 } from '@material-tailwind/react'
 import { FaAd, FaBirthdayCake, FaEnvelope, FaMale } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+import UserInfo from './UserInfo'
 
-const UserList = ({ users }) => {
+const UserList = ({ users}) => {
+
   return (
-    <div className="">
+    <>
+      <div className="mobile:hidden">
       <Carousel className="">
         {users.map((user, index) => {
           return (
@@ -84,6 +88,25 @@ const UserList = ({ users }) => {
         })}
       </Carousel>
     </div>
+    
+    <div className='hidden mobile:block h-[50vh] tablet:h-max mobile:h-[75vh] overflow-y-auto'>
+      {
+        users.map((user, index) => {  
+          return (
+            <Link
+            to={`/info/${user.UserID}`}
+            state={{
+              user: user
+            }}
+           >
+            <UserInfo user = {user} key={index}/>
+            </Link>
+          )
+        })
+      }
+
+    </div>
+    </>
   )
 }
 export default UserList
