@@ -1,5 +1,5 @@
 import { MapPinIcon } from "@heroicons/react/24/outline"
-import { Link } from "react-router-dom"
+import { Link, Navigate, useNavigate } from "react-router-dom"
 import config from "../../../configs/Configs.json"
 import { useEffect, useState } from "react"
 import axios from "axios"
@@ -21,6 +21,10 @@ const FindingInfo = () => {
   const [distance, setDistance] = useState(0)
   const [age, setAge] = useState(0)
   const [sex2, setSex2] = useState("Giới tính thứ ba")
+
+  const navigate = useNavigate()
+
+  console.log(distance)
 
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -46,10 +50,11 @@ const FindingInfo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const distance1 = distance *1000
     
     try {
       const res = await axios.get(
-        `https://api.iudi.xyz/api/location/${userID}/${FINDING_DEFAULT}`
+        `https://api.iudi.xyz/api/location/${userID}/${distance1}`
       )
 
       const data = res.data.Distances;
@@ -63,12 +68,17 @@ const FindingInfo = () => {
       })
 
       setUsers(dataFilter)
+
+      setTimeout(() => {
+        navigate('/listFinding', { state: { users: dataFilter } })
+      }, 500)
+
     } catch (error) {
       console.log(error)
     }
-  }
 
-  console.log(users)
+    console.log("re-render")
+  }
 
   const {
     avatarLink,
@@ -166,10 +176,10 @@ const FindingInfo = () => {
             <div className="mt-12">
               <span className="text-black font-bold">Giới tính</span>
               <div className="mt-4 flex justify-between">
-                <button onClick={() => setSex2("Nam")} className="border border-[#008748] font-bold py-2 px-10 rounded-lg hover:bg-[#008748] hover:text-white">
+                <button type="button"  onClick={() => setSex2("Nam")} className="border border-[#008748] font-bold py-2 px-10 rounded-lg hover:bg-[#008748] hover:text-white">
                   Nam
                 </button>
-                <button onClick={() => setSex2("Nữ")} className="border border-[#008748] font-bold py-2 px-8 rounded-lg hover:bg-[#008748] hover:text-white">
+                <button type="button" onClick={() => setSex2("Nữ")} className="border border-[#008748] font-bold py-2 px-8 rounded-lg hover:bg-[#008748] hover:text-white">
                   Nữ
                 </button>
                 <select
@@ -188,14 +198,15 @@ const FindingInfo = () => {
             </div>
 
             <div className="mt-8 flex justify-between">
-              <Link to="/">
+               <Link to='/'>
                 <button className="border border-[#008748] font-bold py-4 px-12 rounded-lg text-[20px]">Quay lại</button>
-              </Link>
-              <Link to="/listFinding" state={{ users: users }}>
+               </Link>
                 <button type="submit" className="bg-[#008748] text-white font-bold py-4 px-12 rounded-lg text-[20px]">Áp dụng</button>
-              </Link>
             </div>
+
           </div>
+
+          
         </form>
       </div>
     </>
