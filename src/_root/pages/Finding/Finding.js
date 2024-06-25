@@ -80,7 +80,7 @@ function Finding() {
             </div>
         </div>
 
-        <FindingInfo users={users} />
+        <FindingInfo />
     </div>
   </>
  )
